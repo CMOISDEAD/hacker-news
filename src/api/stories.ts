@@ -12,8 +12,11 @@ export const getStorieSet = (url: string) =>
     .then((res) => res.data)
     .catch((err) => err);
 
-export const getItem = (id: number | string) =>
-  instance
-    .get(`item/${id}.json`)
-    .then((res) => res.data)
-    .catch((err) => err);
+export const getItem = async (id: number | string) => {
+  try {
+    const res = await instance.get(`item/${id}.json`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

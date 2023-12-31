@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import instance from "../../api/instance";
+import { CommentItem } from "../../components/CommentItem";
 
-const fetcher = (id: string): IStory =>
+const fetcher = (id: string) =>
   instance.get(`/item/${id}.json`).then((res) => res.data);
 
 export const Story = () => {
@@ -25,8 +26,10 @@ export const Story = () => {
           </a>
           <hr />
           <div className="flex flex-col gap-2 py-5">
-            {data.kids ? (
-              data.kids.map((kid: number) => <p key={kid}>{kid}</p>)
+            {data.kids && data.kids.length ? (
+              data.kids.map((kid: string) => (
+                <CommentItem key={kid} kid={kid} />
+              ))
             ) : (
               <p>No Comments</p>
             )}

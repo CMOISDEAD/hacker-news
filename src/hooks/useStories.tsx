@@ -3,7 +3,7 @@ import instance from "../api/instance";
 import { useEffect, useState } from "react";
 import { getItem } from "../api/stories";
 
-const fetcher = (url: string): number[] =>
+const fetcher = (url: string) =>
   instance
     .get(`${url}.json`)
     .then((res) => res.data)
@@ -15,7 +15,7 @@ export const useStories = (type: string) => {
 
   useEffect(() => {
     if (!data) return;
-    const list = data.slice(0, 10);
+    const list = data.slice(0, 8);
     (async () => {
       const collections = await Promise.all(
         list.map(async (id: number) => await getItem(id)),

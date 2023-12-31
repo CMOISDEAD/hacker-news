@@ -1,24 +1,27 @@
-import { Link } from "react-router-dom";
-import { StoryItem } from "../components/StoryItem";
-import { useStories } from "../hooks/useStories";
+import { StoryList } from "../components/StoryList";
+
+const collection = [
+  {
+    title: "Top Stories",
+    url: "topstories",
+  },
+  {
+    title: "New Stories",
+    url: "newstories",
+  },
+  {
+    title: "Best Stories",
+    url: "beststories",
+  },
+];
 
 export default function Home() {
-  const { stories, isLoading, error } = useStories("topstories");
   return (
     <div>
-      <h1 className="text-4xl font-bold capitalize">Top Stories</h1>
-      <div className="my-5">
-        {isLoading && <div>Loading...</div>}
-        {error && <div>Error: {error}</div>}
-        {stories && (
-          <ul>
-            {stories.map((story: IStory) => (
-              <Link to={`story/${story.id}`} key={story.id}>
-                <StoryItem story={story} />
-              </Link>
-            ))}
-          </ul>
-        )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {collection.map((collection, i) => (
+          <StoryList {...collection} key={i} />
+        ))}
       </div>
     </div>
   );
